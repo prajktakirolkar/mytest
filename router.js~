@@ -17,16 +17,13 @@ function homeRoute(request, response){
 		} else{
 			request.on("data", function(postBody){
 
-				//var ip1 = "122.15.109.90";
-				//var query = geoip.lookup(ip1);
+				var ip1 = "122.15.109.90";
+				var query = geoip.lookup(ip1);
 
-				//console.log(query);
-				var ip=request.headers['x-forwarded-for'] || request.connection.remoteAddress;
-				console.log("ip::"+ip);
-				var geo = geoip.lookup(ip);
+				console.log(query);
 
 				//var query = querystring.parse(postBody.toString());
-				response.writeHead(303, {"Location": "/" + geo.city});
+				response.writeHead(303, {"Location": "/" + query.city});
 				response.end();
 			});
 		}
@@ -41,18 +38,18 @@ function userRoute(request,response){
 		response.writeHead(200, commonHeaders);
 		
 
-		//var cityProfile = new cityWeather(city);
-//var ip1 = "122.15.109.90";
-//var geo1 = geoip.lookup(ip1);
+		var cityProfile = new cityWeather(city);
+var ip1 = "122.15.109.90";
+var geo1 = geoip.lookup(ip1);
 
-//console.log(geo1);
+console.log(geo1);
 
 
 
 		var ip=request.headers['x-forwarded-for'] || request.connection.remoteAddress;
 		console.log("ip::"+ip);
 		var geo = geoip.lookup(ip);
-                console.log("log::"+geo.city);
+               // console.log("log::"+geo.city);
 		cityProfile.on("end", function(weatherData){
 
 			var values = {
@@ -60,7 +57,7 @@ function userRoute(request,response){
 				cityName:weatherData.name,
 				temperature: weatherData.main.temp,
 				humidity:weatherData.main.humidity,
-				location:geo.city,
+				//location:geo.city,
 			}
 				//simple response
 
