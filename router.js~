@@ -26,7 +26,7 @@ function homeRoute(request, response){
 				var geo = geoip.lookup(ip);
 
 				//var query = querystring.parse(postBody.toString());
-				response.writeHead(303, {"Location": "/" + ip.city});
+				response.writeHead(303, {"Location": "/" + geo.city});
 				response.end();
 			});
 		}
@@ -41,11 +41,11 @@ function userRoute(request,response){
 		response.writeHead(200, commonHeaders);
 		
 
-		var cityProfile = new cityWeather(city);
-var ip1 = "122.15.109.90";
-var geo1 = geoip.lookup(ip1);
+		//var cityProfile = new cityWeather(city);
+//var ip1 = "122.15.109.90";
+//var geo1 = geoip.lookup(ip1);
 
-console.log(geo1);
+//console.log(geo1);
 
 
 
