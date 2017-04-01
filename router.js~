@@ -16,8 +16,17 @@ function homeRoute(request, response){
 			response.end();
 		} else{
 			request.on("data", function(postBody){
-				var query = querystring.parse(postBody.toString());
-				response.writeHead(303, {"Location": "/" + query.cityName});
+
+				//var ip1 = "122.15.109.90";
+				//var query = geoip.lookup(ip1);
+
+				//console.log(query);
+				var ip=request.headers['x-forwarded-for'] || request.connection.remoteAddress;
+				console.log("ip::"+ip);
+				var geo = geoip.lookup(ip);
+
+				//var query = querystring.parse(postBody.toString());
+				response.writeHead(303, {"Location": "/" + ip.city});
 				response.end();
 			});
 		}
@@ -33,7 +42,7 @@ function userRoute(request,response){
 		
 
 		var cityProfile = new cityWeather(city);
-var ip1 = "10.110.5.205";
+var ip1 = "122.15.109.90";
 var geo1 = geoip.lookup(ip1);
 
 console.log(geo1);
