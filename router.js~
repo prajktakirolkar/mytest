@@ -17,7 +17,8 @@ function homeRoute(request, response){
 		} else{
 			request.on("data", function(postBody){
 
-				var ip1 = "122.15.109.90";
+				//var ip1 = "122.15.109.90";
+				var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
 				var query = geoip.lookup(ip1);
 
 				console.log(query);
