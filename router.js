@@ -38,12 +38,12 @@ var query = geoip.lookup(ip);
 				/*var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
 				var query = geoip.lookup(ip1);
 				console.log(query);*/
-var ipAddr = req.headers["x-forwarded-for"];
+var ipAddr = request.headers["x-forwarded-for"];
   if (ipAddr){
     var list = ipAddr.split(",");
     ipAddr = list[list.length-1];
   } else {
-    ipAddr = req.connection.remoteAddress;
+    ipAddr = request.connection.remoteAddress;
   }
 				console.log("ipAddr::"+ipAddr);
 				var query = geoip.lookup(ipAddr);
