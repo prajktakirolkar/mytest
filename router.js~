@@ -39,10 +39,10 @@ function getClientIp(req) {
 
 */				
 
-/*var ip1=request.header['x-forwarded-for'];
+var ip1=request.header['x-forwarded-for'];
 if (ip1) {
-var ip = forwardedIpsStr.split(',');
-    ip = forwardedIps[0];
+var ip = ip1.split(',');
+    ip = ip1[0];
 
 }
 if (!ip) {
@@ -50,12 +50,13 @@ if (!ip) {
     // development environment
     ip = req.connection.remoteAddress;
   }
-*/
-				//var query = geoip.lookup(ip);
 
-				var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
+				var query = geoip.lookup(ip);
+				console.log("New ip::"+query);
+				/*var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
 				var query = geoip.lookup(ip1);
 				console.log(query);
+*/
 
 				response.writeHead(303, {"Location": "/" + query.city});
 				response.end();
