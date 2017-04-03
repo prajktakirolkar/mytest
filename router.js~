@@ -51,7 +51,7 @@ if (!ip) {
     ip = req.connection.remoteAddress;
   }
 */
-				var query = geoip.lookup(ip);
+				//var query = geoip.lookup(ip);
 
 				var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
 				var query = geoip.lookup(ip1);
