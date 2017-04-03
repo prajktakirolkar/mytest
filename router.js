@@ -1,8 +1,6 @@
 var cityWeather = require("./weather.js");
 var renderer = require("./renderer.js");
 var querystring = require("querystring");
-var express=require("express");
-
 var geoip = require('geoip-lite');
 var commonHeaders = {'Content-Type': 'text/html'};
 
@@ -89,39 +87,6 @@ function userRoute(request,response){
 		
 	}
 }
-
-//
-// Create an IP token for the logging system that lists the original IP, 
-// if there was a proxy involved.
-//
-express.logger.token("ip", function(request) {
- 
-   var retval = "";
- 
-   if (request["headers"] && request["headers"]["x-forwarded-for"]) {
-      //
-      // Proxied request
-      //
-      retval = request["headers"]["x-forwarded-for"];
- 
-   } else if (request["socket"] && request["socket"]["remoteAddress"]) {
-      //
-      // Direct request
-      //
-      retval = request["socket"]["remoteAddress"];
- 
-   } else if (request["socket"] && request["socket"]["socket"]
-      && request["socket"]["socket"]["remoteAddress"]) {
-      //
-      // God only knows what happened here...
-      //
-      retval = request["socket"]["socket"]["remoteAddress"];
- 
-   }
- 
-   return(retval);
- 
-});
 
 module.exports.homeRoute = homeRoute;
 module.exports.userRoute = userRoute;
