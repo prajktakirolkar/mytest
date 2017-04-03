@@ -43,7 +43,7 @@ var ip1=request.headers['x-forwarded-for'];
 if (ip1) {
 console.log("/n/nnew ip1::"+ip1);
 var ip = ip1.split(',');
-    ip = ip1[0];
+   // ip = ip1[0];
 console.log("/n/nnew ip::"+ip);
 
 }
