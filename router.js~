@@ -39,7 +39,7 @@ function getClientIp(req) {
 
 */				
 
-var ip1=request.header['x-forwarded-for'];
+var ip1=request.headers['x-forwarded-for'];
 if (ip1) {
 var ip = ip1.split(',');
     ip = ip1[0];
