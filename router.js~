@@ -35,8 +35,18 @@ var query = geoip.lookup(ip);
 				console.log("New query ip::"+query);
 */
 				
-				var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
+				/*var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
 				var query = geoip.lookup(ip1);
+				console.log(query);*/
+var ipAddr = req.headers["x-forwarded-for"];
+  if (ipAddr){
+    var list = ipAddr.split(",");
+    ipAddr = list[list.length-1];
+  } else {
+    ipAddr = req.connection.remoteAddress;
+  }
+				console.log("ipAddr::"+ipAddr);
+				var query = geoip.lookup(ipAddr);
 				console.log(query);
 
 
