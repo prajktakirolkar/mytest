@@ -15,10 +15,48 @@ function homeRoute(request, response){
 		} else{
 			request.on("data", function(postBody){
 
-				
-				var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
+/*
+
+function getClientIp(req) {
+  var ipAddress;
+  // Amazon EC2 / Heroku workaround to get real client IP
+  var forwardedIpsStr = req.header('x-forwarded-for'); 
+  if (forwardedIpsStr) {
+    // 'x-forwarded-for' header may return multiple IP addresses in
+    // the format: "client IP, proxy 1 IP, proxy 2 IP" so take the
+    // the first one
+    var forwardedIps = forwardedIpsStr.split(',');
+    ipAddress = forwardedIps[0];
+  }
+  if (!ipAddress) {
+    // Ensure getting client IP address still works in
+    // development environment
+    ipAddress = req.connection.remoteAddress;
+  }
+  return ipAddress;
+};
+
+
+*/				
+
+var ip1=request.header['x-forwarded-for'];
+if (ip1) {
+var ip = forwardedIpsStr.split(',');
+    ip = forwardedIps[0];
+
+}
+if (!ip) {
+    // Ensure getting client IP address still works in
+    // development environment
+    ip = req.connection.remoteAddress;
+  }
+				var query = geoip.lookup(ip);
+
+				/*var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
 				var query = geoip.lookup(ip1);
+*/
 				console.log(query);
+
 				response.writeHead(303, {"Location": "/" + query.city});
 				response.end();
 			});
