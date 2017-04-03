@@ -1,4 +1,4 @@
-//bfb96733b03b5837c96c76cfb0556aa0
+
 
 var router = require("./router.js");
 var port = process.env.PORT || 8080
@@ -13,12 +13,6 @@ http.createServer(function(request, response){
     console.log('Listening to port:  ' + port);
 });
 
-/*.listen(8080, '0.0.0.0', function() {
-    console.log('Listening to port:  ' + 3000);
-});*/
-
-
-console.log('Server running at localhost:8080');
 
 
 

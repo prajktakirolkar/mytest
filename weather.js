@@ -30,11 +30,10 @@ function City(city){
 
     if(response.statusCode !==200){
         request.abort();
-        //Status Code Error
+
         profileEmitter.emit("error", new Error("There was an error getting the weather data for " + city + ". (" + http.STATUS_CODES[response.statusCode] + ")"));
     }
 
-  //Read the data
 
     response.on('data', function (chunk) {
       body += chunk;
@@ -54,7 +53,6 @@ function City(city){
           }
       }
     
-  	/*console.dir(weatherData);*/
     }).on("error", function(error){
       profileEmitter.emit("error", error);
     });
