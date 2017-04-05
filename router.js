@@ -44,7 +44,7 @@ var ipAddr=request.headers["x-forwarded-for"];//request.headers['x-forwarded-for
   } else {
     ipAddr = request.connection.remoteAddress;
   }
-console.log("new change");
+console.log("new);
 				console.log("ipAddr::"+ipAddr);
 				var query = geoip.lookup(ipAddr);
 				console.log(query);
