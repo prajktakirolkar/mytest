@@ -25,7 +25,7 @@ function City(city){
 
 //Connect to the API
 
-  var request = http.get("http://api.openweathermap.org/data/2.5/weather?q="+ city +"&units=imperial&APPID=bfb96733b03b5837c96c76cfb0556aa0", function(response){
+  var request = http.get("http://api.openweathermap.org/data/2.5/weather?q="+ city +"&units=metric&APPID=bfb96733b03b5837c96c76cfb0556aa0", function(response){
     var body = "";
 
     if(response.statusCode !==200){

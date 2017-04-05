@@ -1,44 +1,42 @@
 var cityWeather = require("./weather.js");
-var renderer = require("./renderer.js");
+//var renderer = require("./renderer.js");
 var querystring = require("querystring");
 var geoip = require('geoip-lite');
 var commonHeaders = {'Content-Type': 'text/html'};
+
+
+
+var fs = require("fs");
+
+function mergeValues(values, content){
+	for(var key in values){
+		content = content.replace("{{" + key + "}}", values[key]);
+	}
+	return content;
+}
+
+
+function view(templateName, values, response){
+
+	
+	var fileContents = fs.readFileSync('./views/' + templateName + '.html', {encoding:"utf8"});
+
+	fileContents = mergeValues(values, fileContents);
+
+	response.write(fileContents);
+
+	
+}
 
 
 function homeRoute(request, response){
 	
 	if(request.url === "/"){
 		if(request.method.toLowerCase() === "get"){
-			response.writeHead(200, commonHeaders);		
-			renderer.view("search", {}, response);		
-			response.end();
-		} else{
-			request.on("data", function(postBody){
 
-				
-/*
-var ip1=request.headers['x-forwarded-for'];
-if (ip1) {
-console.log("/n/nnew ip1::"+ip1);
-//var ip = ip1.split(',');
-   // ip = ip1[0];
-console.log("/n/nnew ip::"+ip);
 
-}
-if (!ip) {
-    // Ensure getting client IP address still works in
-    // development environment
-    ip = req.connection.remoteAddress;
-console.log("/n/nnew new ip::"+ip);
-  }
-var query = geoip.lookup(ip);
-				console.log("New query ip::"+query);
-*/
-				
-				/*var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
-				var query = geoip.lookup(ip1);
-				console.log(query);*/
-var ipAddr = request.headers["x-forwarded-for"];
+
+var ipAddr ='122.15.109.90'; //request.headers["x-forwarded-for"];
   if (ipAddr){
     var list = ipAddr.split(",");
     ipAddr = list[list.length-1];
@@ -50,18 +48,11 @@ var ipAddr = request.headers["x-forwarded-for"];
 				console.log(query);
 
 
-				response.writeHead(303, {"Location": "/" + query.city});
-				response.end();
-			});
-		}
-	}
-}
+var city =query.city;
+console.log("city:"+city);
 
-function userRoute(request,response){
 
-	var city = request.url.replace("/", "");
 
-	if (city.length > 0){
 		response.writeHead(200, commonHeaders);
 		
 		var cityProfile = new cityWeather(city);
@@ -80,13 +71,16 @@ function userRoute(request,response){
 				
 			}		
 
-		renderer.view("profile", values, response);
+		view("profile", values, response);
 		response.end();
 		});
 
-		
+
+		} 
 	}
 }
 
+
+
 module.exports.homeRoute = homeRoute;
-module.exports.userRoute = userRoute;
+
