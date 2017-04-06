@@ -2,8 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var geoip = require('geoip-lite');
-var port = process.env.PORT || 8080
-
+app.set('port', (process.env.PORT || 5000))
 
 app.get('/', function (req, res) {
  
@@ -57,14 +56,8 @@ res.end("City: "+weatherData.name+" Temperature: "+weatherData.main.temp+" Humid
   });
 
 
+});
 
-
-
-})
-
-var server = app.listen(port,'0.0.0.0', function () {
-   var host = server.address().address
-   var port = server.address().port
-   
-   console.log("Example app listening at http://%s:%s", host, port)
+var server = app.listen(app.get('port'), function() {
+ console.log("Node app is running at localhost:" + app.get('port'))
 })
