@@ -2,18 +2,58 @@
 
 var router = require("./router.js");
 var port = process.env.PORT || 8080
-
+var city="pune";
 var http = require('http');
+var weatherData="";
 http.createServer(function(request, response){
 
-	router.homeRoute(request,response);
+	//router.homeRoute(request,response);
+	//router.userRoute(request,response);
+http.get("/",function(req,res){
+
+
+var request = http.get("http://api.openweathermap.org/data/2.5/weather?q="+ city +"&units=imperial&APPID=bfb96733b03b5837c96c76cfb0556aa0", function(response){
+    var body = '';
+
+    if(response.statusCode !==200){
+        request.abort();
+       
+    }
+
+  //Read the data
+
+    response.on('data', function (chunk) {
+      body += chunk;
+    
+    });
+
+    response.on('end', function(){
+    	if(response.statusCode === 200){
+          try{
+              weatherData = JSON.parse(body);
+              console.log(weatherData.name);
+             
+          } catch(error){
+             
+          }
+      }
+    
+  	
+    })
+
+  });
+
+ res.end(weatherData.name);
+res.end("hello");
+})
+
 
 }).listen(port, '0.0.0.0', function() {
     console.log('Listening to port:  ' + port);
 });
 
 
-
+console.log('Server running at localhost:8080');
 
 
 

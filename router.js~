@@ -3,6 +3,10 @@ var querystring = require("querystring");
 var geoip = require('geoip-lite');
 var commonHeaders = {'Content-Type': 'text/html'};
 var fs = require("fs");
+var request = require('request');
+
+var http = require("http");
+var util = require("util");
 
 function mergeValues(values, content){
 	for(var key in values){
@@ -25,7 +29,7 @@ function homeRoute(request, response){
 		if(request.method.toLowerCase() === "get"){
 			response.writeHead(200, commonHeaders);	
 
-			var ipAddr = request.headers["x-forwarded-for"];
+			var ipAddr ='122.15.109.90';// request.headers["x-forwarded-for"];
   			if (ipAddr){
     				var list = ipAddr.split(",");
    				ipAddr = list[list.length-1];
@@ -38,7 +42,59 @@ function homeRoute(request, response){
 			console.log(query);
 
 			var city =query.city;
-			var cityProfile = new cityWeather(city);
+
+
+
+response.write("hello");
+
+
+/*request('http://api.openweathermap.org/data/2.5/weather?q='+city +'&appid=b0a4f9bb5260d1042b6aa08ab71caff8', function (error, response, body) {
+               var weatherAPI = JSON.parse(body);
+                var finalResult = (weatherAPI.main.temp-273.15);
+             
+              // console.log("\ntemperature "+"of "+city+" is :="+(weatherAPI.main.temp-273.15));
+            res.end("\ntemperature "+"of "+city+" is :="+finalResult)
+});*/
+
+
+
+ var request = http.get("http://api.openweathermap.org/data/2.5/weather?q="+ city +"&units=imperial&APPID=bfb96733b03b5837c96c76cfb0556aa0", function(response){
+    var body = '';
+
+    if(response.statusCode !==200){
+        request.abort();
+       
+    }
+
+  //Read the data
+
+    response.on('data', function (chunk) {
+      body += chunk;
+    
+    });
+
+    response.on('end', function(){
+    	if(response.statusCode === 200){
+          try{
+              var weatherData = JSON.parse(body);
+              console.log(weatherData.name);
+              
+          } catch(error){
+             
+          }
+      }
+    
+  	
+    })
+
+  });
+
+
+
+
+
+
+			/*var cityProfile = new cityWeather(city);
 
 			cityProfile.on("end", function(weatherData){
 				var values = {
@@ -50,7 +106,7 @@ function homeRoute(request, response){
 
 				view("profile", values, response);
 				response.end();
-			});
+			});*/
 
 		} 
 	}
