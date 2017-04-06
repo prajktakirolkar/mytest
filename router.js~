@@ -1,8 +1,30 @@
 var cityWeather = require("./weather.js");
-var renderer = require("./renderer.js");
+
 var querystring = require("querystring");
 var geoip = require('geoip-lite');
 var commonHeaders = {'Content-Type': 'text/html'};
+
+var fs = require("fs");
+
+function mergeValues(values, content){
+	for(var key in values){
+		content = content.replace("{{" + key + "}}", values[key]);
+	}
+	return content;
+}
+
+
+function view(templateName, values, response){
+
+	
+	var fileContents = fs.readFileSync('./views/' + templateName + '.html', {encoding:"utf8"});
+
+	fileContents = mergeValues(values, fileContents);
+
+	response.write(fileContents);
+
+	
+}
 
 
 function homeRoute(request, response){
@@ -38,7 +60,7 @@ cityProfile.on("end", function(weatherData){
 				
 			}		
 
-		renderer.view("profile", values, response);
+		view("profile", values, response);
 		response.end();
 		});
 
