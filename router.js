@@ -26,7 +26,7 @@ function homeRoute(request, response){
 
 			var city =query.city;
 
-	var request = http.get("http://api.openweathermap.org/data/2.5/weather?q="+ city +"&units=imperial&APPID=bfb96733b03b5837c96c76cfb0556aa0", function(res){
+	var request = http.get("http://api.openweathermap.org/data/2.5/weather?q="+ city +"&units=metric&APPID=bfb96733b03b5837c96c76cfb0556aa0", function(res){
    		var body = '';
 
     		if(res.statusCode !==200){
@@ -46,7 +46,7 @@ function homeRoute(request, response){
              			 weatherData = JSON.parse(body);
              			 console.log(weatherData.name);
 
-				 response.end("City: "+weatherData.name+" Temperature: "+weatherData.main.temp+" Humidity "+weatherData.main.humidity);
+				 response.end(" City: "+weatherData.name+" \nTemperature: "+weatherData.main.temp+"°C\nHumidity "+weatherData.main.humidity+" %");
              
           		} catch(error){
              
