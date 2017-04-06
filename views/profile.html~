@@ -5,7 +5,7 @@
     <p><span>{{cityName}}</span></p>
 
     <ul>
-        <li>Temperature: <span>{{temperature}}</span>&deg;F</li>
+        <li>Temperature: <span>{{temperature}}</span>&deg;C</li>
         <li>Humidity: <span>{{humidity}}</span>% Humidity</li>
        
         
