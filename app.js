@@ -8,14 +8,14 @@ var port = process.env.PORT || 8080
 app.get('/', function (req, res) {
  
 //var ipAddr ='122.15.109.90';// request.headers["x-forwarded-for"];
-var ipAddr =request.headers["x-forwarded-for"];
-  			if (ipAddr){
+var ipAddr =request.connection.remoteAddress;
+  			/*if (ipAddr){
     				var list = ipAddr.split(",");
    				ipAddr = list[list.length-1];
  			 } 
 			else {
    				 ipAddr = request.connection.remoteAddress;
-  			}
+  			}*/
 			console.log("ipAddr::"+ipAddr);
 			var query = geoip.lookup(ipAddr);
 			console.log(query);
