@@ -28,7 +28,7 @@ function City(city){
               var weatherData = JSON.parse(body);
               profileEmitter.emit("end", weatherData);
            } 
-	  catch(error){
+	catch(error){
               profileEmitter.emit("error", error);
            }
         }

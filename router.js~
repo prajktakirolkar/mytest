@@ -18,6 +18,7 @@ function view(templateName, values, response){
 	response.write(fileContents);	
 }
 
+
 function homeRoute(request, response){
 	
 	if(request.url === "/"){
@@ -47,18 +48,10 @@ function homeRoute(request, response){
 					humidity:weatherData.main.humidity,	
 				}			
 
-				//view("profile", values, response);
-response.write("hello");
-response.write("hello111");
-response.write(values);
-response.write(values[cityName]);
-response.write(values[temperature]);
-response.write(values[humidity]);
-
-		
-
+				view("profile", values, response);
 				response.end();
 			});
+
 		} 
 	}
 }
