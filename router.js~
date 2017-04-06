@@ -9,13 +9,9 @@ function homeRoute(request, response){
 	
 	if(request.url === "/"){
 		if(request.method.toLowerCase() === "get"){
-			response.writeHead(200, commonHeaders);		
-			renderer.view("search", {}, response);		
-			response.end();
-		} else{
-			request.on("data", function(postBody){
+			response.writeHead(200, commonHeaders);	
 
-				
+
 var ipAddr = request.headers["x-forwarded-for"];
   if (ipAddr){
     var list = ipAddr.split(",");
@@ -28,14 +24,31 @@ var ipAddr = request.headers["x-forwarded-for"];
 				console.log(query);
 
 
-				response.writeHead(303, {"Location": "/" + query.city});
-				response.end();
-			});
-		}
+var city =query.city;
+
+	var cityProfile = new cityWeather(city);
+
+cityProfile.on("end", function(weatherData){
+
+			var values = {
+				WeatherIcon:weatherData.weather[0].icon,
+				cityName:weatherData.name,
+				temperature: weatherData.main.temp,
+				humidity:weatherData.main.humidity,
+				
+			}		
+
+		renderer.view("profile", values, response);
+		response.end();
+		});
+
+			//renderer.view("search", {}, response);		
+			//response.end();
+		} 
 	}
 }
 
-function userRoute(request,response){
+/*function userRoute(request,response){
 
 	var city = request.url.replace("/", "");
 
@@ -65,6 +78,6 @@ function userRoute(request,response){
 		
 	}
 }
-
+*/
 module.exports.homeRoute = homeRoute;
-module.exports.userRoute = userRoute;
+//module.exports.userRoute = userRoute;
