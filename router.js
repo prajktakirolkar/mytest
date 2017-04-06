@@ -16,28 +16,6 @@ function homeRoute(request, response){
 			request.on("data", function(postBody){
 
 				
-/*
-var ip1=request.headers['x-forwarded-for'];
-if (ip1) {
-console.log("/n/nnew ip1::"+ip1);
-//var ip = ip1.split(',');
-   // ip = ip1[0];
-console.log("/n/nnew ip::"+ip);
-
-}
-if (!ip) {
-    // Ensure getting client IP address still works in
-    // development environment
-    ip = req.connection.remoteAddress;
-console.log("/n/nnew new ip::"+ip);
-  }
-var query = geoip.lookup(ip);
-				console.log("New query ip::"+query);
-*/
-				
-				/*var ip1=request.headers['x-forwarded-for'] || request.connection.remoteAddress;	
-				var query = geoip.lookup(ip1);
-				console.log(query);*/
 var ipAddr = request.headers["x-forwarded-for"];
   if (ipAddr){
     var list = ipAddr.split(",");
@@ -66,9 +44,9 @@ function userRoute(request,response){
 		
 		var cityProfile = new cityWeather(city);
 
-		var ip=request.headers['x-forwarded-for'] || request.connection.remoteAddress;
-		console.log("ip::"+ip);
-		var geo = geoip.lookup(ip);
+		//var ip=request.headers['x-forwarded-for'] || request.connection.remoteAddress;
+		//console.log("ip::"+ip);
+		//var geo = geoip.lookup(ip);
 
 		cityProfile.on("end", function(weatherData){
 
