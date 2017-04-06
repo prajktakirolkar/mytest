@@ -12,7 +12,7 @@ function homeRoute(request, response){
 		if(request.method.toLowerCase() === "get"){
 			response.writeHead(200, commonHeaders);	
 
-			var ipAddr = '122.15.109.90';//request.headers["x-forwarded-for"];
+			var ipAddr = request.headers["x-forwarded-for"];
   			if (ipAddr){
     				var list = ipAddr.split(",");
    				ipAddr = list[list.length-1];
