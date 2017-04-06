@@ -38,7 +38,7 @@ function City(city){
   });
 
 }
-util.inherits( City, EventEmitter );
+util.inherits( City);
 
 module.exports = City;
 
