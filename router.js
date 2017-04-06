@@ -42,42 +42,9 @@ cityProfile.on("end", function(weatherData){
 		response.end();
 		});
 
-			//renderer.view("search", {}, response);		
-			//response.end();
 		} 
 	}
 }
 
-/*function userRoute(request,response){
-
-	var city = request.url.replace("/", "");
-
-	if (city.length > 0){
-		response.writeHead(200, commonHeaders);
-		
-		var cityProfile = new cityWeather(city);
-
-		//var ip=request.headers['x-forwarded-for'] || request.connection.remoteAddress;
-		//console.log("ip::"+ip);
-		//var geo = geoip.lookup(ip);
-
-		cityProfile.on("end", function(weatherData){
-
-			var values = {
-				WeatherIcon:weatherData.weather[0].icon,
-				cityName:weatherData.name,
-				temperature: weatherData.main.temp,
-				humidity:weatherData.main.humidity,
-				
-			}		
-
-		renderer.view("profile", values, response);
-		response.end();
-		});
-
-		
-	}
-}
-*/
 module.exports.homeRoute = homeRoute;
-//module.exports.userRoute = userRoute;
+
