@@ -48,7 +48,8 @@ function homeRoute(request, response){
 				}			
 
 				//view("profile", values, response);
-				response.end(values);
+response.write(values);	
+				response.end();
 			});
 		} 
 	}
