@@ -62,7 +62,7 @@ res.end("City: "+weatherData.name+" Temperature: "+weatherData.main.temp+" Humid
 
 })
 
-var server = app.listen(port, function () {
+var server = app.listen(port,'0.0.0.0', function () {
    var host = server.address().address
    var port = server.address().port
    

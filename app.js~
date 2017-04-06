@@ -1,16 +1,26 @@
-
-
-var router = require("./router.js");
-var port = process.env.PORT || 8080
-var city="pune";
+var express = require('express');
+var app = express();
 var http = require('http');
-var weatherData="";
-http.createServer(function(request, response){
+var geoip = require('geoip-lite');
+var port = process.env.PORT || 8080
 
-	//router.homeRoute(request,response);
-	//router.userRoute(request,response);
-http.get("/",function(req,res){
 
+app.get('/', function (req, res) {
+ 
+//var ipAddr ='122.15.109.90';// request.headers["x-forwarded-for"];
+var ipAddr =request.headers["x-forwarded-for"];
+  			if (ipAddr){
+    				var list = ipAddr.split(",");
+   				ipAddr = list[list.length-1];
+ 			 } 
+			else {
+   				 ipAddr = request.connection.remoteAddress;
+  			}
+			console.log("ipAddr::"+ipAddr);
+			var query = geoip.lookup(ipAddr);
+			console.log(query);
+
+			var city =query.city;
 
 var request = http.get("http://api.openweathermap.org/data/2.5/weather?q="+ city +"&units=imperial&APPID=bfb96733b03b5837c96c76cfb0556aa0", function(response){
     var body = '';
@@ -32,28 +42,29 @@ var request = http.get("http://api.openweathermap.org/data/2.5/weather?q="+ city
           try{
               weatherData = JSON.parse(body);
               console.log(weatherData.name);
+
+res.end("City: "+weatherData.name+" Temperature: "+weatherData.main.temp+" Humidity "+weatherData.main.humidity);
              
           } catch(error){
              
           }
       }
+
     
   	
     })
 
   });
 
- res.end(weatherData.name);
-res.end("hello");
+
+
+
+
 })
 
-
-}).listen(port, '0.0.0.0', function() {
-    console.log('Listening to port:  ' + port);
-});
-
-
-console.log('Server running at localhost:8080');
-
-
-
+var server = app.listen(port,'0.0.0.0', function () {
+   var host = server.address().address
+   var port = server.address().port
+   
+   console.log("Example app listening at http://%s:%s", host, port)
+})
