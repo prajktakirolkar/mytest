@@ -1,16 +1,19 @@
 {
-  "name": "ex_try",
+  "name": "mytest",
   "version": "1.0.0",
-  "description": "",
+  "description": "check weather",
   "main": "app.js",
   "scripts": {
-	"start": "node app.js"
-    
+    "start": "node app.js"
   },
-  "author": "",
+  "author": "prajkta",
   "license": "ISC",
   "dependencies": {
+    "events": "^1.1.1",
     "express": "^4.15.2",
-    "geoip-lite": "^1.2.0"
+    "geoip-lite": "^1.2.0",
+    "public-ip": "^2.3.3",
+    "querystring": "^0.2.0",
+    "util": "^0.10.3"
   }
 }
