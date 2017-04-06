@@ -47,8 +47,8 @@ function homeRoute(request, response){
 					humidity:weatherData.main.humidity,	
 				}			
 
-				view("profile", values, response);
-				response.end();
+				//view("profile", values, response);
+				response.end(values);
 			});
 		} 
 	}
