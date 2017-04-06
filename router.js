@@ -48,7 +48,14 @@ function homeRoute(request, response){
 				}			
 
 				//view("profile", values, response);
-response.write("hello");	
+response.write("hello");
+response.write("hello111");
+for(var key in values){
+response.write("inloop");
+response.write(values[key]);
+		
+	}
+	
 				response.end();
 			});
 		} 
