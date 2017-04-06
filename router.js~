@@ -50,6 +50,7 @@ function homeRoute(request, response){
 				//view("profile", values, response);
 response.write("hello");
 response.write("hello111");
+response.write(values);
 response.write(values[cityName]);
 response.write(values[temperature]);
 response.write(values[humidity]);
