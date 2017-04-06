@@ -2,7 +2,7 @@ var EventEmitter = require("events").EventEmitter;
 var http = require("http");
 var util = require("util");
 
-function timeConverter(UNIX_timestamp){
+/*function timeConverter(UNIX_timestamp){
   var a = new Date(UNIX_timestamp * 1000);
   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var year = a.getFullYear();
@@ -14,7 +14,7 @@ function timeConverter(UNIX_timestamp){
   var time = hour + ':' + min;
   return time;
 }
-
+*/
 
 
 function City(city){
